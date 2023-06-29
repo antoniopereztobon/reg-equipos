@@ -1,0 +1,14 @@
+{% extends "./master.html" %}
+{% load static %}
+{% block title %}Borrar registro equipo{% endblock %}
+
+{% block content %}
+
+<h3>Borrar {{ regEquipo }}?</h1>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a href="{% url 'ingreso:detail' regEquipo.id %}">Cancel</a>
+</form>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "./master.html" %}
+{% load static %}
+{% block title %}Sede seleccionada{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/eq_hoy.css' %}">
+
+    <h3>Sedes</h3>
+    <p></p>
+    <a class="btn btn-primary" href="#">Nuevo Registro+</a>
+    <p></p>
+    <p></p>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Empresa</th>
+                <th>Sede</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sede in sedes %}
+                <tr>
+                    <td>{{ sede.empresa }}</td>
+                    <td>{{ sede.nom_sede }}</td>
+                    <td><a href="{% url 'ingreso:sede' sede.id %}"><img class="icon" src="{% static 'img/icon-select.png' %}"></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

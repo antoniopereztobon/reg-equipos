@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- Links para JQuery. Necesarios para autocomplete -->
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+    </head>
+
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-sm bg-light">
+              <div class="container-fluid">
+                <!-- Links -->
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ingreso:sedes' %}">Sedes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ingreso:req_hoy' %}">Registro-Equipos</a>
+                  </li>
+
+                  {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                  {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ingreso:user_login' %}">Login</a>
+                        </li>
+                  {% endif %}
+
+                </ul>
+              </div>
+            </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding:5px" class="mb-3 text-white
+            {% if message.tags == "error" %}
+                bg-danger">
+            {% elif message.tags == "success" %}
+                bg-success">
+            {% else %}
+                bg-warning">{{ message.tags }}:
+            {% endif %}
+            {{ message }}</div>
+        {% endfor %}
+    {% endif %}
+        
+    {% block content %}
+    {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,27 @@
+{% extends "./master.html" %}
+{% load static %}
+{% block title %}Equipo{% endblock %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h3>
+        {% if not form.instance.pk %}
+            Crear Equipo
+        {% else %}
+            Actualizar Equipo
+        {% endif %}
+    </h3>
+
+    {% if msg != "" %}
+        <div class="mb-3 bg-info">{{ msg }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Guardar">
+    </form>
+
+{% endblock %}

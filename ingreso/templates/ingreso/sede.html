@@ -1,0 +1,12 @@
+{% extends "./master.html" %}
+{% load static %}
+{% block title %}Sede seleccionada{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/eq_hoy.css' %}">
+
+    <h1>Sede seleccionada:</h1>
+    <p> Empresa: {{ sede.empresa }}</p>
+    <p> Sede: {{ sede.nom_sede }}</p>
+    <p> id: {{ sede.id }}</p>
+{% endblock %}

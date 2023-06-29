@@ -1,0 +1,171 @@
+{% extends "./master.html" %} 
+{% load static %} 
+{% block title %}Registro Equipos {% endblock %} 
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<script>
+    $(document).ready(function() {
+      $("#id_sede").prop("readonly", true);
+
+      $("#id_portador").focus();
+
+      $('#modalPersonaFormShow').click(function() {
+            $('#personaForm')[0].reset();
+            $('#errmsgPersona').text('');
+        });
+
+        $('#modalEquipoFormShow').click(function() {
+            $('#equipoForm')[0].reset();
+            $('#errmsgEquipo').text('');
+        });
+
+        // Bind the click event to the submit button
+        $('#personaForm').submit(function(e) {
+            e.preventDefault();
+
+            var personaFormData = $(this).serialize();
+
+            // Send the Ajax request
+            $.ajax({
+                type: 'POST',
+                url: '../ajax_query_persona/',
+                data: personaFormData,
+                dataType: 'json',
+                success: function(response) {
+                    // Handle the successful response
+                    console.log(response);
+                    $('#id_portador').val(response.result);
+                    $('#modalPersonaFormCloseButton').click();
+                },
+                error: function(response) {
+                    // Handle any errors
+                    console.log(response.responseJSON.error);
+                    $('#errmsgPersona').text(response.responseJSON.error);
+                }
+            });
+        });
+
+        // Bind the click event to the submit button
+        $('#equipoForm').submit(function(e) {
+            e.preventDefault();
+
+            var equipoFormData = $(this).serialize();
+
+            // Send the Ajax request
+            $.ajax({
+                type: 'POST',
+                url: '../ajax_query_equipo/',
+                data: equipoFormData,
+                dataType: 'json',
+                success: function(response) {
+                    // Handle the successful response
+                    console.log(response);
+                    $('#id_equipo').val(response.result);
+                    $('#modalEquipoFormCloseButton').click();
+                },
+                error: function(response) {
+                    // Handle any errors
+                    console.log(response.responseJSON.error);
+                    $('#errmsgEquipo').text(response.responseJSON.error);
+                }
+            });
+        });
+
+        $("#id_portador").autocomplete({
+            source: "{% url 'ingreso:search_portador' %}",
+            minLength: 2,
+            delay: 200,
+        });
+
+        $("#id_equipo").autocomplete({
+          source: "{% url 'ingreso:search_equipo' %}",
+          minLength: 2,
+          delay: 200,
+        });
+
+        $("#id_portador").keydown(function(event) {
+          //alert("key pressed: " + event.which);
+          if (event.which === 187) {
+            $("#modalPersonaFormShow").click();
+          }
+        });
+
+        $("#id_equipo").keydown(function(event) {
+          if (event.which === 187) {
+            $("#modalEquipoFormShow").click();
+          }
+        });
+
+    });
+</script>
+
+<button id="modalPersonaFormShow" hidden type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropPersona">Portador nuevo</button>
+<button id="modalEquipoFormShow" hidden type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropEquipo">Equipo nuevo</button>
+
+<h3>
+    {% if is_update %}
+        Actualizar Ingreso de Equipo
+    {% else %}
+        Ingreso de Equipo
+    {% endif %}
+</h3>
+<p></p>
+
+<form id="formReqEquipo" method="post">
+    {% csrf_token %}
+    {{ formRegEquipo|crispy }}
+  <button id="submit-button" type="submit" class="btn btn-primary">Guardar</button>
+</form>
+  
+<!-- Modal Persona -->
+<div class="modal fade" id="staticBackdropPersona" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Persona</h5>
+        <button id="modalPersonaFormCloseButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p id="errmsgPersona" class="bg-danger"></p>
+          <form id="personaForm" method="post">
+              {% csrf_token %}
+              {{ formPersona|crispy }}
+              <button id="submit-button" type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <!-- <button type="button" class="btn btn-primary">Cerrar</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- Modal Equipo -->
+<div class="modal fade" id="staticBackdropEquipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Equipo</h5>
+        <button id="modalEquipoFormCloseButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p id="errmsgEquipo" class="bg-danger"></p>
+          <form id="equipoForm" method="post">
+              {% csrf_token %}
+              {{ formEquipo|crispy }}
+              <button id="submit-button" type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <!-- <button type="button" class="btn btn-primary">Cerrar</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
