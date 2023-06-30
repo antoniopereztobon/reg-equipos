@@ -7,3 +7,4 @@ django-bootstrap-v5
 crispy-bootstrap5
 django-crispy-forms
 pytz
+--upgrade pip
