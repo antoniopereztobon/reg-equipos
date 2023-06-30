@@ -20,7 +20,7 @@ from ingreso import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ingreso.urls')),
+    #path('', include('ingreso.urls')),
     path("", views.IndexView.as_view(), name="index"),
     path("logout/", views.user_logout, name="logout"),
 ]
