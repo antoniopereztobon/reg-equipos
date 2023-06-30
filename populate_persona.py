@@ -1,12 +1,16 @@
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "azureproject.settings")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "azureproject.settings")
+
+settings_module = 'azureproject.production' if 'WEBSITE_HOSTNAME' in os.environ else 'azureproject.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 import django
 
 django.setup()
 
 import csv
+from django.core.management.base import BaseCommand
 from ingreso.models import Persona
 
 
@@ -22,7 +26,10 @@ def populate(N):
                 id_tipo = "CC"
                 id_num = row[0]
                 nom_persona = row[1]
-                persona = Persona.objects.create(id_tipo=id_tipo, id_num=id_num, nom_persona=nom_persona)
+                try:
+                    persona = Persona.objects.create(id_tipo=id_tipo, id_num=id_num, nom_persona=nom_persona)
+                except Exception as e:
+                    print(f'Error: {str(e)}; línea: {line_count}; nombre: {nom_persona}')
 
                 line_count += 1
 
