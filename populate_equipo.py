@@ -13,7 +13,7 @@ from ingreso.models import Equipo
 def populate(N):
     with open("equipo.csv", encoding="utf-8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=";")
-        line_count =  0
+        line_count = 0
         for row in csv_reader:
             if line_count == 0:
                 print(f'Columnas: {", ".join(row)}')
