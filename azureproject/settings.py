@@ -66,7 +66,7 @@ ROOT_URLCONF = 'azureproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -160,10 +160,10 @@ LOGIN_URL = "/ingreso/user_login"
 # Other settings...
 
 # Session settings
-#SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
-#SESSION_COOKIE_NAME = 'sessionid'
-#SESSION_COOKIE_PATH = '/'
-#SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_PATH = '/'
+SESSION_COOKIE_SECURE = True
 #SESSION_COOKIE_HTTPONLY = True
 
 # Other session-related settings...
