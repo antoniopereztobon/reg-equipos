@@ -22,7 +22,7 @@ def populate(N):
                 eq_tipo = row[0]
                 eq_marca = row[1]
                 eq_serie = row[2]
-                equipo = Equipo.objects.get_or_create(eq_tipo=eq_tipo, eq_marca=eq_marca, eq_serie=eq_serie)[0]
+                equipo = Equipo.objects.create(eq_tipo=eq_tipo, eq_marca=eq_marca, eq_serie=eq_serie)
 
                 line_count += 1
 
