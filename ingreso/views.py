@@ -159,7 +159,7 @@ def borrar_req(request, req_id):
 def autocomplete_portador(request):
     if is_ajax(request=request):
         query = request.GET.get("term", "").capitalize()
-        # print(f"query: {query}")
+        print(f"query: {query}")
         query_set = Persona.objects.filter(id_num__startswith=query)
         results = []
         for per in query_set:
@@ -175,7 +175,7 @@ def autocomplete_portador(request):
 def autocomplete_equipo(request):
     if is_ajax(request=request):
         query = request.GET.get("term", "").capitalize()
-        # print(f"query: {query}")
+        print(f"query: {query}")
         query_set = Equipo.objects.filter(eq_serie__startswith=query)
         results = []
         for eq in query_set:

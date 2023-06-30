@@ -74,7 +74,7 @@
             });
         });
 
-        $("#id_portador").autocomplete({
+        $("#id_portador").autocomplete({ 
             source: "{% url 'ingreso:search_portador' %}",
             minLength: 2,
             delay: 200,
