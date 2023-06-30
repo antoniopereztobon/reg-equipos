@@ -1,6 +1,9 @@
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "azureproject.settings")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "azureproject.settings")
+
+settings_module = 'azureproject.production' if 'WEBSITE_HOSTNAME' in os.environ else 'azureproject.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 import django
 
