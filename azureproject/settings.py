@@ -66,7 +66,7 @@ ROOT_URLCONF = 'azureproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/"templates"],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,12 +143,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-#STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "ingreso/static",
-]
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -160,10 +156,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Other settings...
 
 # Session settings
-SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
-SESSION_COOKIE_NAME = 'sessionid'
-SESSION_COOKIE_PATH = '/'
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
+#SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
+#SESSION_COOKIE_NAME = 'sessionid'
+#SESSION_COOKIE_PATH = '/'
+#SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_HTTPONLY = True
 
 # Other session-related settings...
