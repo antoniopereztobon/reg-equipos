@@ -7,7 +7,7 @@ import django
 django.setup()
 
 import csv
-from restaurant_review.models import Equipo
+from ingreso.models import Equipo
 
 
 def populate(N):

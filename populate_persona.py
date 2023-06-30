@@ -7,7 +7,7 @@ import django
 django.setup()
 
 import csv
-from restaurant_review.models import Persona
+from ingreso.models import Persona
 
 
 def populate(N):
