@@ -160,7 +160,7 @@ def autocomplete_portador(request):
     if is_ajax(request=request):
         query = request.GET.get("term", "").capitalize()
         print(f"query: {query}")
-        query_set = Persona.objects.filter(id_num__startswith=query)
+        query_set = Persona.objects.filter(id_num__istartswith=query)
         print('query_set_count: ' + query_set.count())
         results = []
         for per in query_set:
@@ -177,7 +177,7 @@ def autocomplete_equipo(request):
     if is_ajax(request=request):
         query = request.GET.get("term", "").capitalize()
         print(f"query: {query}")
-        query_set = Equipo.objects.filter(eq_serie__startswith=query)
+        query_set = Equipo.objects.filter(eq_serie__istartswith=query)
         print('query_set_count: ' + query_set.count())
         results = []
         for eq in query_set:
