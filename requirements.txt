@@ -6,3 +6,4 @@ whitenoise==6.5.0
 django-bootstrap-v5
 crispy-bootstrap5
 django-crispy-forms
+pytz
